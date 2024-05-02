@@ -23,7 +23,7 @@ model faculty {
 model pulpit {
   pulpitId   Int       @id @default(autoincrement())
   pulpitName String
-  faculty    faculty   @relation(fields: [facultyId], references: [facId])
+  faculty    faculty   @relation(fields: [facultyId], references: [facId],onUpdate: Cascade, onDelete: Cascade)
   facultyId  Int
   subjects   subject[]
   teachers   teacher[]
@@ -33,14 +33,14 @@ model subject {
   subjectId   Int    @id @default(autoincrement())
   subjectName String
   pulpitId    Int
-  pulpit      pulpit @relation(fields: [pulpitId], references: [pulpitId])
+  pulpit      pulpit @relation(fields: [pulpitId], references: [pulpitId], onUpdate: Cascade, onDelete: Cascade)
 }
 
 model teacher {
   teacherId   Int    @id @default(autoincrement())
   teacherName String
   pulpitId    Int
-  pulpit      pulpit @relation(fields: [pulpitId], references: [pulpitId])
+  pulpit      pulpit @relation(fields: [pulpitId], references: [pulpitId],onUpdate: Cascade, onDelete: Cascade)
 }
 
 model auditorium_type {
@@ -54,5 +54,5 @@ model auditorium {
   auditoriumName     String
   auditoriumCapacity Int
   auditoriumTypeId   Int
-  auditoriumType     auditorium_type @relation(fields: [auditoriumTypeId], references: [auditoriumTypeId])
+  auditoriumType     auditorium_type @relation(fields: [auditoriumTypeId], references: [auditoriumTypeId], onUpdate: Cascade, onDelete: Cascade)
 }

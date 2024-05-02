@@ -1,14 +1,14 @@
 INSERT INTO faculty (facId, facultyAbbr, facultyName)
 VALUES (1, 'ФКСиС', 'Факультет компьтерных систем и сетей');
-
 INSERT INTO faculty (facId, facultyAbbr, facultyName)
 VALUES (2, 'ФКП', 'Факультет компьютерного проектирвания');
-
 INSERT INTO faculty (facId, facultyAbbr, facultyName)
 VALUES (3, 'ФИБ', 'Факультет информационной безопасности');
 INSERT INTO faculty (facId, facultyAbbr, facultyName)
 VALUES (4, 'ФРЭ', 'Факультет радиотехники и электроники');
-select *from subject;
+
+
+select *from pulpit;
 INSERT INTO pulpit (pulpitId, pulpitName, facultyId)
 VALUES (1, 'Кафедра высшей математики', 2);
 INSERT INTO pulpit (pulpitId, pulpitName, facultyId)

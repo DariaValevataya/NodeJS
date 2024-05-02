@@ -6,38 +6,9 @@ class AuditoriumTypeService {
     async getAuditoriumTypes() {
         return await prisma.auditorium_type.findMany();
     }
-   /* async deleteAuditoriumType(id) {
-        const auditoriums= await prisma.auditorium.update({
-            where:{
-                auditoriumTypeId: id
-            },
-            data: {
-                auditoriumTypeId: null,
-            }
-
-        })
-        const deleteAuditoriumType=await prisma.auditorium_type.delete({ where: { auditoriumTypeId: id } });
-       
-        return deleteAuditoriumType
-    }*/
     async deleteAuditoriumType(id) {
-        const result = await prisma.$transaction([
-          prisma.auditorium.updateMany({
-            where: {
-              auditoriumTypeId: id
-            },
-            data: {
-              auditoriumTypeId: null
-            }
-          }),
-          prisma.auditorium_type.delete({
-            where: {
-              auditoriumTypeId: id
-            }
-          })
-        ]);
-      
-        return result[1]; // Возвращает результат удаления auditorium_type
+        return await prisma.auditorium_type.delete({ where: { auditoriumTypeId: id } })
+
       }
     async createAuditoriumType(auditoriumType) {
         const { auditoriumTypeName } = auditoriumType;
