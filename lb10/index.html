@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulpits</title>
+</head>
+
+<body>
+    <div id="pulpits"></div>
+    <div id="pages"></div>
+
+
+    <script>
+        let count = 10;
+        let pulpits = [];
+
+
+        (() => {
+            fetch(`api/getPulpitsWithTeacherCount`)
+                .then((response) => response.json())
+                .then((pulpit) => {
+                    pulpits = pulpit;
+                    console.log(pulpit)
+            
+                    const totalPages = Math.ceil(pulpits.length / count)
+                    console.log(totalPages)
+                    let div = document.getElementById('pages');
+                    for (let i = 1; i <= totalPages; i++) {
+                        div.innerHTML += `<button onclick='ChangePage(${i})'>${i}</button>`;
+                    }
+
+                    ChangePage(1);
+                })
+        })()
+       
+        function ChangePage(page) {
+            let div = document.getElementById('pulpits');
+            div.innerHTML = '';
+
+            for (let i = ((page - 1) * count); i < (page * count); i++) {
+                div.innerHTML += `<div><p>{
+                    Id: ${pulpits[i].pulpitId},
+                    Name: ${pulpits[i].pulpitName},
+                    FacultyId: ${pulpits[i].facultyId}
+                    }
+                    <p>Teachers: ${pulpits[i]._count.teachers}</p>
+                    </p></div>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

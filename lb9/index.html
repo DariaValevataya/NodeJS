@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turtles</title>
+</head>
+
+<body>
+    <div id="turtles"></div>
+    <div id="pages"></div>
+
+
+    <script>
+        let turtles = [];
+        const count = 3;
+
+
+        (() => {
+            fetch(`api/turtles`)
+                .then((response) => response.json())
+                .then((turtle) => {
+                    turtles = turtle;
+                    console.log(turtle)
+
+                    const totalPages = Math.ceil(turtles.length / count)
+                    console.log(totalPages)
+                    let div = document.getElementById('pages');
+                    for (let i = 1; i <= totalPages; i++) {
+                        div.innerHTML += `<button onclick='ChangePage(${i})'>${i}</button>`;
+                    }
+
+                    ChangePage(1);
+                })
+        })()
+
+        function ChangePage(page) {
+            let div = document.getElementById('turtles');
+            div.innerHTML = '';
+
+            for (let i = ((page-1) * count); i < (page * count); i++) {
+                div.innerHTML += `<div><p>{
+                    Id: ${turtles[i].id},
+                    Name: ${turtles[i].name},
+                    WeaponId: ${turtles[i].weaponId},
+                    FavoritePizzaId: ${turtles[i].favoritePizzaId},
+                    SecondFavoritePizzaId: ${turtles[i].secondFavoritePizzaId}
+                }
+                    </p></div>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

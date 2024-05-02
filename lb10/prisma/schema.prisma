@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model faculty {
+  facId       Int      @id @default(autoincrement())
+  facultyAbbr String
+  facultyName String
+  pulpits     pulpit[]
+}
+
+model pulpit {
+  pulpitId   Int       @id @default(autoincrement())
+  pulpitName String
+  faculty    faculty   @relation(fields: [facultyId], references: [facId])
+  facultyId  Int
+  subjects   subject[]
+  teachers   teacher[]
+}
+
+model subject {
+  subjectId   Int    @id @default(autoincrement())
+  subjectName String
+  pulpitId    Int
+  pulpit      pulpit @relation(fields: [pulpitId], references: [pulpitId])
+}
+
+model teacher {
+  teacherId   Int    @id @default(autoincrement())
+  teacherName String
+  pulpitId    Int
+  pulpit      pulpit @relation(fields: [pulpitId], references: [pulpitId])
+}
+
+model auditorium_type {
+  auditoriumTypeId   Int          @id @default(autoincrement())
+  auditoriumTypeName String
+  auditoriums        auditorium[]
+}
+
+model auditorium {
+  auditoriumId       Int             @id @default(autoincrement())
+  auditoriumName     String
+  auditoriumCapacity Int
+  auditoriumTypeId   Int
+  auditoriumType     auditorium_type @relation(fields: [auditoriumTypeId], references: [auditoriumTypeId])
+}
