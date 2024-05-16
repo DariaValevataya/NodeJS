@@ -37,7 +37,7 @@ let phoneList = [
  *                     description: Contact's phone number.
  */
 app.get('/TS', (req, res) => {
-  res.json(phoneList);
+  res.status(200).json(phoneList);
 });
 /**
  * @swagger
@@ -76,7 +76,6 @@ app.post('/TS', (req, res) => {
   phoneList.push(newContact);
   res.status(200).json(newContact);
 });
-
 /**
  * @swagger
  * /TS/{id}:
@@ -121,10 +120,8 @@ app.put('/TS/:id', (req, res) => {
     contactName,
     phoneNumber,
   };
-  res.json(phoneList[index]);
-
+  res.status(200).json(phoneList[index]);
 });
-
 /**
 * @swagger
 * /TS/{id}:
@@ -147,7 +144,7 @@ app.put('/TS/:id', (req, res) => {
 app.delete('/TS/:id', (req, res) => {
   const phoneId = parseInt(req.params.id);
   phoneList = phoneList.filter((phone) => phone.id !== phoneId);
-  res.json(phoneList);
+  res.status(200).json(phoneList);
 });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
