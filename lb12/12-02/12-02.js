@@ -89,6 +89,9 @@ app.get(`/auth/refresh-token`, async (req, res, next) => {
         }
 
     }
+    else{
+        return res.status(401).json({ error: 'Refresh token in BlackList' });
+    }
 });
 
 app.get('/auth/logout', async (req, res) => {
