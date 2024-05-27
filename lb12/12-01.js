@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 var session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const passport = require('passport');
